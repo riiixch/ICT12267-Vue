@@ -28,48 +28,55 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" to="/about">
-                                About
+                            <router-link class="nav-link" to="/customer">
+                                <i class="bi bi-people-fill me-1"></i> จัดการลูกค้า
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" to="/contract">
-                                Contract
+                            <router-link class="nav-link" to="/employee">
+                                <i class="bi bi-briefcase-fill me-1"></i> จัดการพนักงาน
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/register">
+                                <i class="bi bi-person-fill-add me-1"></i> ลงทะเบียนใหม่
                             </router-link>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                Dropdown
+                                เพิ่มเติม
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="#">
-                                        Action
-                                    </a>
+                                    <router-link class="dropdown-item" to="/register">
+                                        <i class="bi bi-person-fill-add me-1"></i> ลงทะเบียนใหม่
+                                    </router-link>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
-                                        Another action
-                                    </a>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <router-link class="dropdown-item" to="/about">
+                                        About Us
+                                    </router-link>
+                                </li>
+                                <li>
+                                    <router-link class="dropdown-item" to="/contract">
+                                        Contact
+                                    </router-link>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#">
-                                        Something else here
+                                        Settings
                                     </a>
                                 </li>
                             </ul>
                         </li>
                     </ul>
-                    <form class="d-flex mt-3 mt-lg-0" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">
-                            Search
-                        </button>
-                    </form>
                 </div>
             </div>
         </div>
