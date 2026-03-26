@@ -79,10 +79,10 @@ export default {
                 } else {
                     response = await axios.post("http://localhost/ICT12267-Vue/api/employee.php", currentEmployee.value);
                 }
-                
+
                 const result = response.data;
                 if (result.error) throw new Error(result.error);
-                
+
                 await fetchEmployees();
                 showStatus(
                     isEditing.value ? "อัปเดตสำเร็จ" : "เพิ่มพนักงานสำเร็จ",
@@ -105,10 +105,10 @@ export default {
                 const response = await axios.delete("http://localhost/ICT12267-Vue/api/employee.php", {
                     params: { id: employeeToDelete.value }
                 });
-                
+
                 const result = response.data;
                 if (result.error) throw new Error(result.error);
-                
+
                 await fetchEmployees();
                 showStatus("ลบข้อมูลสำเร็จ", result.message || "ข้อมูลถูกลบเรียบร้อยแล้ว", false);
                 employeeToDelete.value = null;
@@ -146,7 +146,8 @@ export default {
         <div class="card shadow-sm border-0">
             <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
                 <h4 class="mb-0"><i class="bi bi-briefcase-fill me-2"></i>ระบบจัดการข้อมูลพนักงาน</h4>
-                <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#employeeModal" @click="openAddModal">
+                <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#employeeModal"
+                    @click="openAddModal">
                     <i class="bi bi-plus-circle-fill me-1"></i> เพิ่มพนักงานใหม่
                 </button>
             </div>
@@ -188,10 +189,12 @@ export default {
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group shadow-sm">
-                                        <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#employeeModal" @click="openEditModal(emp)">
+                                        <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#employeeModal" @click="openEditModal(emp)">
                                             <i class="bi bi-pencil-square"></i> แก้ไข
                                         </button>
-                                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" @click="confirmDelete(emp.emp_id)">
+                                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#deleteConfirmModal" @click="confirmDelete(emp.emp_id)">
                                             <i class="bi bi-trash-fill"></i> ลบ
                                         </button>
                                     </div>
@@ -210,7 +213,8 @@ export default {
         </div>
 
         <!-- --- Modal: Add / Edit Employee --- -->
-        <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+        <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border-0 shadow">
                     <div class="modal-header" :class="isEditing ? 'bg-warning' : 'bg-primary text-white'">
@@ -218,36 +222,50 @@ export default {
                             <i class="bi me-2" :class="isEditing ? 'bi-pencil-square' : 'bi-plus-circle-fill'"></i>
                             {{ isEditing ? 'แก้ไขข้อมูลพนักงาน' : 'เพิ่มพนักงานใหม่' }}
                         </h5>
-                        <button type="button" class="btn-close" :class="!isEditing ? 'btn-close-white' : ''" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" :class="!isEditing ? 'btn-close-white' : ''"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form @submit.prevent="saveEmployee">
                         <div class="modal-body p-4">
                             <div class="row g-3">
                                 <div class="col-12" v-if="!isEditing">
                                     <label class="form-label fw-semibold">รหัสพนักงาน</label>
-                                    <input type="text" v-model="currentEmployee.emp_id" class="form-control" required placeholder="เช่น EMP001">
+                                    <input type="text" v-model="currentEmployee.emp_id" class="form-control" required
+                                        placeholder="เช่น EMP001">
                                 </div>
                                 <div class="col-12" v-else>
                                     <label class="form-label fw-semibold">รหัสพนักงาน (ไม่สามารถแก้ไขได้)</label>
-                                    <input type="text" :value="currentEmployee.emp_id" class="form-control bg-light" readonly>
+                                    <input type="text" :value="currentEmployee.emp_id" class="form-control bg-light"
+                                        readonly>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label fw-semibold">ชื่อ - นามสกุล</label>
-                                    <input type="text" v-model="currentEmployee.full_name" class="form-control" required placeholder="กรอกชื่อและนามสกุล">
+                                    <input type="text" v-model="currentEmployee.full_name" class="form-control" required
+                                        placeholder="กรอกชื่อและนามสกุล">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">แผนก / ฝ่าย</label>
-                                    <input type="text" v-model="currentEmployee.department" class="form-control" required placeholder="เช่น IT,บัญชี">
+                                    <select v-model="currentEmployee.department" class="form-control" required>
+                                        <option value="" selected disabled>เลือกแผนก / ฝ่าย</option>
+                                        <option value="IT">IT</option>
+                                        <option value="บัญชี">บัญชี</option>
+                                        <option value="การตลาด">การตลาด</option>
+                                        <option value="ทรัพยากรบุคคล">ทรัพยากรบุคคล</option>
+                                        <option value="การเงิน">การเงิน</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">เงินเดือน (฿)</label>
-                                    <input type="number" v-model="currentEmployee.salary" class="form-control" required min="0">
+                                    <input type="number" v-model="currentEmployee.salary" class="form-control" required
+                                        min="0">
                                 </div>
                                 <div class="col-12 mt-4">
                                     <div class="form-check form-switch p-3 bg-light rounded shadow-sm border">
-                                        <input class="form-check-input ms-0 me-2" type="checkbox" id="activeStatus" v-model="currentEmployee.active" :true-value="1" :false-value="0">
+                                        <input class="form-check-input ms-0 me-2" type="checkbox" id="activeStatus"
+                                            v-model="currentEmployee.active" :true-value="1" :false-value="0">
                                         <label class="form-check-label fw-bold" for="activeStatus">
-                                            สถานะการทำงาน: {{ currentEmployee.active ? 'กำลังทำงาน (Active)' : 'พ้นสภาพ (Inactive)' }}
+                                            สถานะการทำงาน:
+                                            {{ currentEmployee.active ? 'กำลังทำงาน (Active)' : 'พ้นสภาพ (Inactive)' }}
                                         </label>
                                     </div>
                                 </div>
@@ -274,8 +292,10 @@ export default {
                         <p class="text-muted small">คุณกำลังจะลบข้อมูลของพนักงานท่านนี้ออกจากระบบ ข้อมูลจะหายถาวร</p>
                     </div>
                     <div class="modal-footer border-0 justify-content-center pb-4">
-                        <button type="button" class="btn btn-light px-4 shadow-sm" data-bs-dismiss="modal">ยกเลิก</button>
-                        <button type="button" class="btn btn-danger px-4 shadow-sm" @click="deleteEmployee" data-bs-dismiss="modal">ลบข้อมูล</button>
+                        <button type="button" class="btn btn-light px-4 shadow-sm"
+                            data-bs-dismiss="modal">ยกเลิก</button>
+                        <button type="button" class="btn btn-danger px-4 shadow-sm" @click="deleteEmployee"
+                            data-bs-dismiss="modal">ลบข้อมูล</button>
                     </div>
                 </div>
             </div>
@@ -286,12 +306,15 @@ export default {
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content border-0 shadow text-center">
                     <div class="modal-body p-4">
-                        <i class="bi mb-3 display-3" :class="modalMessage.isError ? 'bi-x-circle-fill text-danger' : 'bi-check-circle-fill text-success'"></i>
+                        <i class="bi mb-3 display-3"
+                            :class="modalMessage.isError ? 'bi-x-circle-fill text-danger' : 'bi-check-circle-fill text-success'"></i>
                         <h4 class="mb-2">{{ modalMessage.title }}</h4>
                         <p class="text-muted mb-0">{{ modalMessage.content }}</p>
                     </div>
                     <div class="modal-footer border-0 justify-content-center pb-4">
-                        <button type="button" class="btn px-5 shadow-sm" :class="modalMessage.isError ? 'btn-danger' : 'btn-success'" data-bs-dismiss="modal">ตกลง</button>
+                        <button type="button" class="btn px-5 shadow-sm"
+                            :class="modalMessage.isError ? 'btn-danger' : 'btn-success'"
+                            data-bs-dismiss="modal">ตกลง</button>
                     </div>
                 </div>
             </div>
@@ -300,14 +323,27 @@ export default {
 </template>
 
 <style scoped>
-.card { border-radius: 12px; }
-.card-header { border-radius: 12px 12px 0 0 !important; }
+.card {
+    border-radius: 12px;
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+}
+
 .table thead th {
     font-weight: 600;
     text-transform: uppercase;
     font-size: 0.85rem;
     letter-spacing: 0.5px;
 }
-.btn { border-radius: 8px; font-weight: 500; }
-.modal-content { border-radius: 15px; }
+
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.modal-content {
+    border-radius: 15px;
+}
 </style>

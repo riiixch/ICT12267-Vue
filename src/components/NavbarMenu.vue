@@ -38,6 +38,11 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
+                            <router-link class="nav-link" to="/login">
+                                <i class="bi bi-box-arrow-in-right me-1"></i> เข้าสู่ระบบ
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
                             <router-link class="nav-link" to="/register">
                                 <i class="bi bi-person-fill-add me-1"></i> ลงทะเบียนใหม่
                             </router-link>
